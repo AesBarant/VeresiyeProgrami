@@ -22,7 +22,7 @@ class MusteriClassAdapter extends TypeAdapter<MusteriClass> {
       address: fields[2] as String,
       number: fields[3] as String,
       totalPrice: fields[4] as double,
-      ayrinti: (fields[5] as List?)?.cast<MusteriAyrintiClass>(),
+      ayrinti: (fields[5] as List).cast<MusteriAyrintiClass>(),
     );
   }
 

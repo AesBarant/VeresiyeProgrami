@@ -14,7 +14,7 @@ ayrintiGoster(
     context: context,
     builder: (context) {
       final List<MusteriAyrintiClass> ayrintiList =
-          musteriList.firstWhere((musteri) => musteri.id == musteriId).ayrinti!;
+          musteriList.firstWhere((musteri) => musteri.id == musteriId).ayrinti;
       return SizedBox(
         height: 1200,
         child: Row(
@@ -99,7 +99,7 @@ DataRow ayrintiDataRow(
   MusteriClass musteri =
       musteriList.firstWhere((musteri) => musteri.id == musteriId);
   // MusteriClass? musteri = Hive.box<MusteriClass>("musteri").get(musteriId);
-  MusteriAyrintiClass oAnkiAyrinti = musteri.ayrinti![index];
+  MusteriAyrintiClass oAnkiAyrinti = musteri.ayrinti[index];
   return DataRow(
     cells: [
       dataCell(
@@ -175,7 +175,7 @@ void ayritiEkle(String musteriId, List<MusteriClass> musteriList) async {
     odenen: double.tryParse(_odenenController.text) ?? 0,
     tarih: DateTime.now(),
   );
-  musteri.ayrinti!.add(newAyrinti);
+  musteri.ayrinti.add(newAyrinti);
 
   // Müşteri nesnesini güncelle
   _updateTotalPrice(musteriId, musteri);
@@ -195,7 +195,7 @@ void ayrintiSil(BuildContext context, String musteriId, int index,
   final box = Hive.box<MusteriClass>("musteri");
   MusteriClass musteri =
       musteriList.firstWhere((musteri) => musteri.id == musteriId);
-  musteri.ayrinti!.removeAt(index);
+  musteri.ayrinti.removeAt(index);
   await box.delete(musteriId);
   musteriList = box.values.toList();
   Hive.box<MusteriClass>("musteri").compact();
@@ -263,7 +263,7 @@ void _updateTotalPrice(String musteriId, MusteriClass musteri) {
   double totalBorc = 0;
   double totalOdenen = 0;
 
-  musteri.ayrinti?.forEach((ayrinti) {
+  musteri.ayrinti.forEach((ayrinti) {
     totalBorc += ayrinti.borc;
     totalOdenen += ayrinti.odenen;
   });

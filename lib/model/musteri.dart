@@ -23,7 +23,7 @@ class MusteriClass {
   @HiveField(4)
   double totalPrice;
   @HiveField(5)
-  List<MusteriAyrintiClass>? ayrinti;
+  List<MusteriAyrintiClass> ayrinti;
   @override
   String toString() {
     return "$name $ayrinti";
