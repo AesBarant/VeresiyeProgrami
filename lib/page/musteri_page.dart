@@ -69,8 +69,8 @@ class _MusteriPageState extends State<MusteriPage> {
                   }),
               oAnkiMusteri)),
       textDataCell(oAnkiMusteri.totalPrice.toString()),
-      dataCell("Ayrıntıları Göster", onPressed: () async{
-        setState(()  {
+      dataCell("Ayrıntıları Göster", onPressed: () async {
+        setState(() {
           ayrintiGoster(
             context,
             widget.musteriList,
@@ -131,11 +131,11 @@ class _MusteriPageState extends State<MusteriPage> {
     final arananKey = box.keys.firstWhere(
         (key) => box.get(key)?.id == oAnkimusteri,
         orElse: () => null);
-
-    if (arananKey != null) {
-      await box.delete(arananKey); // Veritabanından silme işlemi
-    }
     widget.musteriList.removeWhere((key) => key.id == oAnkimusteri);
+    arananKey != null
+        ? await box.delete(arananKey)
+        : await null; // Veritabanından silme işlemi
+
     widget.musteriList = box.values.toList();
     await Hive.box<MusteriClass>("musteri").compact();
   }
