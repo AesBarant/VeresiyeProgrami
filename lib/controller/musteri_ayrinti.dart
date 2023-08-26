@@ -8,9 +8,10 @@ import '../widgets/textwidgets.dart';
 final TextEditingController _aciklamaController = TextEditingController();
 final TextEditingController _borcController = TextEditingController();
 final TextEditingController _odenenController = TextEditingController();
+
 ayrintiGoster(
     BuildContext context, List<MusteriClass> musteriList, String musteriId) {
-  return showModalBottomSheet(
+  return showModalBottomSheet<void>(
     context: context,
     builder: (context) {
       final List<MusteriAyrintiClass> ayrintiList =
@@ -18,71 +19,60 @@ ayrintiGoster(
       return SizedBox(
         height: 1200,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: SingleChildScrollView(
-                      child: DataTable(
-                        columns: [
-                          DataColumn(
-                              label: Text("Açıklama",
-                                  style: Sabitler.turuncuYaziTipi)),
-                          DataColumn(
-                              label: Text("Borç",
-                                  style: Sabitler.turuncuYaziTipi)),
-                          DataColumn(
-                              label: Text("Ödenen",
-                                  style: Sabitler.turuncuYaziTipi)),
-                          DataColumn(
-                              label: Text("Tarih",
-                                  style: Sabitler.turuncuYaziTipi)),
-                          DataColumn(
-                              label:
-                                  Text("Sil", style: Sabitler.turuncuYaziTipi)),
-                        ],
-                        rows: List<DataRow>.generate(
-                          ayrintiList.length,
-                          (index) => ayrintiDataRow(
-                            context,
-                            index,
-                            musteriList,
-                            musteriId,
-                          ),
-                        ),
-                      ),
+              flex: 4,
+              child: SingleChildScrollView(
+                child: DataTable(
+                  columns: [
+                    DataColumn(
+                        label:
+                            Text("Açıklama", style: Sabitler.turuncuYaziTipi)),
+                    DataColumn(
+                        label: Text("Borç", style: Sabitler.turuncuYaziTipi)),
+                    DataColumn(
+                        label: Text("Ödenen", style: Sabitler.turuncuYaziTipi)),
+                    DataColumn(
+                        label: Text("Tarih", style: Sabitler.turuncuYaziTipi)),
+                    DataColumn(
+                        label: Text("Sil", style: Sabitler.turuncuYaziTipi)),
+                  ],
+                  rows: List<DataRow>.generate(
+                    ayrintiList.length,
+                    (index) => ayrintiDataRow(
+                      context,
+                      index,
+                      musteriList,
+                      musteriId,
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 100),
-                          textField("Açıklama Yaz", _aciklamaController),
-                          const SizedBox(height: 30),
-                          textField("Borc Yaz", _borcController),
-                          const SizedBox(height: 30),
-                          textField("Odenen Yaz", _odenenController),
-                          const SizedBox(height: 30),
-                          TextButton(
-                            onPressed: () {
-                              ayritiEkle(musteriId, musteriList);
-                              Navigator.pop(context);
-                            },
-                            child:
-                                Text("Ekle", style: Sabitler.turuncuYaziTipi),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
             ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
+                    textField("Açıklama Yaz", _aciklamaController),
+                    const SizedBox(height: 30),
+                    textField("Borc Yaz", _borcController),
+                    const SizedBox(height: 30),
+                    textField("Odenen Yaz", _odenenController),
+                    const SizedBox(height: 30),
+                    TextButton(
+                      onPressed: () {
+                        ayritiEkle(musteriId, musteriList);
+                        Navigator.pop(context);
+                      },
+                      child: Text("Ekle", style: Sabitler.turuncuYaziTipi),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       );

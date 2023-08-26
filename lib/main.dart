@@ -11,7 +11,7 @@ void main() async {
   await Hive.initFlutter("veresiye_database");
   Hive.registerAdapter(MusteriClassAdapter());
   Hive.registerAdapter(MusteriAyrintiClassAdapter());
-   Hive.registerAdapter(ToptanciClassAdapter());
+  Hive.registerAdapter(ToptanciClassAdapter());
   Hive.registerAdapter(ToptanciAyrintiClassAdapter());
   await Hive.openBox<MusteriClass>("musteri");
   await Hive.openBox<ToptanciClass>("toptanci");
@@ -28,9 +28,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         theme: ThemeData(
+          useMaterial3: false,
           floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Colors.deepOrange.shade300,
-          ),
+              backgroundColor: Colors.deepOrange.shade300,
+              foregroundColor: Sabitler.beyaz),
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.deepOrange.shade300,
           ),

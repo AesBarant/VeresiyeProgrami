@@ -99,7 +99,9 @@ class _FloatACState extends State<FloatAC> {
                                 child: Column(
                                   children: [
                                     textField(
-                                        widget.toptanciController, "İsim Gir")
+                                      widget.toptanciController,
+                                      "İsim Gir",
+                                    )
                                   ],
                                 ),
                               ),
