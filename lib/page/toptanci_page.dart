@@ -55,14 +55,13 @@ class _ToptanciPageState extends State<ToptanciPage> {
       textDataCell(oAnkiMusteri.tTotalPrice.toString()),
       dataCell("Ayrıntıları Göster", onPressed: () {
         setState(() {
-           toptanciAyrintiGoster(
-           context,
-           widget.toptanciList,
-           oAnkiMusteri.id,
-         );
-         Hive.box<ToptanciClass>("toptanci").compact();
+          toptanciAyrintiGoster(
+            context,
+            widget.toptanciList,
+            oAnkiMusteri.id,
+          );
+          Hive.box<ToptanciClass>("toptanci").compact();
         });
-        
       }),
       dataCell("Sil", onPressed: () => _sil(oAnkiMusteri.id))
     ]);
@@ -114,10 +113,11 @@ class _ToptanciPageState extends State<ToptanciPage> {
         (key) => box.get(key)?.id == oAnkimusteri,
         orElse: () => null);
 
-    if (arananKey != null) {
-      await box.delete(arananKey); // Veritabanından silme işlemi
-    }
     widget.toptanciList.removeWhere((key) => key.id == oAnkimusteri);
+    arananKey != null
+        ? await box.delete(arananKey)
+        : await null; // Veritabanından silme işlemi
+
     widget.toptanciList = box.values.toList();
     await Hive.box<ToptanciClass>("toptanci").compact();
   }

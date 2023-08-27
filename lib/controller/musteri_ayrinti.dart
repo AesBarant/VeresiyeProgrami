@@ -167,21 +167,26 @@ void ayritiEkle(String musteriId, List<MusteriClass> musteriList) async {
   );
   musteri.ayrinti.add(newAyrinti);
 
-  // Müşteri nesnesini güncelle
-  _updateTotalPrice(musteriId, musteri);
-
   // Güncellenmiş müşteri nesnesini veritabanına kaydet
   await box.put(musteriId, musteri);
   await box.compact();
   musteriList = box.values.toList();
+
+  // Müşteri nesnesini güncelle
+  _updateTotalPrice(musteriId, musteri);
+  //
 
   _aciklamaController.clear();
   _borcController.clear();
   _odenenController.clear();
 }
 
-void ayrintiSil(BuildContext context, String musteriId, int index,
-    List<MusteriClass> musteriList) async {
+void ayrintiSil(
+  BuildContext context,
+  String musteriId,
+  int index,
+  List<MusteriClass> musteriList,
+) async {
   final box = Hive.box<MusteriClass>("musteri");
   MusteriClass musteri =
       musteriList.firstWhere((musteri) => musteri.id == musteriId);
@@ -253,10 +258,10 @@ void _updateTotalPrice(String musteriId, MusteriClass musteri) {
   double totalBorc = 0;
   double totalOdenen = 0;
 
-  musteri.ayrinti.forEach((ayrinti) {
+  for (var ayrinti in musteri.ayrinti) {
     totalBorc += ayrinti.borc;
     totalOdenen += ayrinti.odenen;
-  });
+  }
 
   double kalanBorc = totalBorc - totalOdenen;
 
